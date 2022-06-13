@@ -1,13 +1,5 @@
 <div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 A Login and Registeration Page Based on Assignment Given
@@ -65,6 +57,12 @@ Download via Github Link / Git.
    ```sh
    git clone https://github.com/FA2500/auth.git
    ```
+
+2. Upload auth.sql to PHPMYADMIN
+
+3. All authentication are created with hardcode dummy account. 
+
+4. Done
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

@@ -16,7 +16,7 @@ if (isset($_POST['signup'])) {
 	$email = mysqli_real_escape_string($conn, $_POST['email']);
 	$password = mysqli_real_escape_string($conn, $_POST['password']);
 	$cpassword = mysqli_real_escape_string($conn, $_POST['cpassword']);
-	$emailhash = password_hash(rand(111111,999999),PASSWORD_BCRYPT);
+	$emailOTP = uniqid();
 	if (!preg_match("/^[a-zA-Z ]+$/",$name)) {
 		$error = true;
 		$uname_error = "Name must contain only alphabets and space";
@@ -35,26 +35,28 @@ if (isset($_POST['signup'])) {
 	}
 	if (!$error) {
 		$hash = password_hash($password,PASSWORD_BCRYPT);
-		if(mysqli_query($conn, "INSERT INTO users(user, email, pass, otphash) VALUES('" . $name . "', '" . $email . "', '" . $hash . "', '" . $emailhash . "')")) 
+		if(mysqli_query($conn, "INSERT INTO users(user, email, pass, otphash) VALUES('" . $name . "', '" . $email . "', '" . $hash . "', '" . $emailOTP . "')")) 
 		{
 			$success_message = "Successfully Registered! <a href='login.php'>Click here to Login</a>";
-			sendEmail($email,$emailhash); 
-			//header("Location: emailConfirm.php"); 
+			sendEmail($email,$emailOTP,$conn); 
+			
 		} 
 		else {
-			//$error_message = "Error in registering...Please try again later!";
+			
 			$error_message = mysqli_error($conn);
 		}
 	}
 }
 
-function sendEmail($email,$hash)
+function sendEmail($email,$hash,$conn)
 {
+	include_once("db_connect.php");
+
     try {
 		$mail = new PHPMailer(true);
 		$mail->isSMTP();
 		$mail->Mailer="smtp";
-		$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+		$mail->SMTPDebug = false;
 	
 		$mail->SMTPAuth = TRUE;
 		$mail->SMTPSecure = "tls";
@@ -72,6 +74,18 @@ function sendEmail($email,$hash)
 		$mail->AltBody = 'Thank you for your registeration. Here is your code <b>'.$hash.'</b>';
 	
 		$mail->send();
+		$zero = 0;
+		$thisdate = date("Y-m-d H:i:s");
+		if(mysqli_query($conn, "INSERT INTO authentication(otp, expired, created) VALUES('" . $hash . "', '" . $zero . "', '" . $thisdate . "')")) 
+		{
+			echo "<script>window.location.assign('emailConfirm.php')</script>";
+		} 
+		else 
+		{
+			$error_message = "Please try again later";
+			echo $error_message;
+			//echo mysqli_error($conn);
+		}
 	} catch (Exception $e) {
 		echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 	}

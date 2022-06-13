@@ -38,7 +38,7 @@ if (isset($_POST['signup'])) {
 	}
 	if (!$error) {
 		$hash = password_hash($password,PASSWORD_BCRYPT);
-		if(mysqli_query($conn, "INSERT INTO users(user, email, pass, otphash) VALUES('" . $name . "', '" . $email . "', '" . $hash . "', '" . $emailhash . "')")) 
+		if(mysqli_query($conn, "INSERT INTO users(user, email, pass, otphash) VALUES('" . $name . "', '" . $email . "', '" . $hash . "', '" . $emailOTP . "')")) 
 		{
 			//$success_message = "Successfully Registered! <a href='login.php'>Click here to Login</a>";
 			sendEmail($email,$emailOTP, $conn); 
@@ -88,6 +88,7 @@ function sendEmail($email,$hash,$conn)
 		{
 			$error_message = "Please try again later";
 			echo $error_message;
+			//echo mysqli_error($conn);
 		}
 	} catch (Exception $e) {
 		echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
