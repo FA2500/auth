@@ -7,21 +7,39 @@ A Login and Registeration Page Based on Assignment Given
 ## 1) easy: peek feature that allow user to see their saved password
 
 * Implemented in register.php AND registerAPI.php . Use <script> tag inside.
+    
+    ![Peak](https://github.com/FA2500/auth/blob/master/images/ss1.PNG)
 
 ## 2) medium: check user entered email address availability using jQuery/Ajax (compare user input with data in database). 
 
 * Implemented in register.php. Use checkemail.php, checkemail.js and AJAX to connect Database and change data accordingly.
+    
+    ![Available](https://github.com/FA2500/auth/blob/master/images/ss2.PNG)
+    
+    ![Unavailable](https://github.com/FA2500/auth/blob/master/images/ss3.PNG)
 
 ## c) medium: OTP or activation account using uniqid() and email function.
 
 * Implemented in registerAPI.php. Use checkOTP.php and mail.php to send OTP number via email.
+    
+    ![OTP](https://github.com/FA2500/auth/blob/master/images/ss4.PNG)
+    
+    
 
 ## d) high: password strength meter using API. 
 
 * I have created 2 ways to guess password strength
 
     i) AJAX Register = Use AJAX and Third Party JS to get user's password strength ( register.php )
+    
+     ![getAPI](https://github.com/FA2500/auth/blob/master/images/ss7.PNG)
+    
     ii) GET API = Use AJAX and own API to get user's password strength ( registerAPI.php )
+        
+    ![code](https://github.com/FA2500/auth/blob/master/images/ss5.PNG)
+    
+    ![thirdparty](https://github.com/FA2500/auth/blob/master/images/ss6.PNG)
+   
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
